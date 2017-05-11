@@ -1,0 +1,30 @@
+﻿create proc ClientInsert
+@ФИО nchar(10), @Фирма nchar(10), @Город nchar(10), @Телефон nchar(10)
+as
+Insert into Клиент
+values (@ФИО, @Фирма, @Город, @Телефон);
+
+go
+
+create proc ClientUpdate
+@Код int, @ФИО nchar(10), @Фирма nchar(10), @Город nchar(10), @Телефон nchar(10)
+as
+Update Клиент
+set ФИО = @ФИО, Фирма = @Фирма,Город= @Город,Телефон =  @Телефон
+Where
+Код= @Код;
+
+go
+
+create proc ClientDelete
+@Код int
+as
+Delete Клиент
+Where
+Код= @Код;
+
+go
+
+Create view ClientView 
+as
+Select * from Клиент
