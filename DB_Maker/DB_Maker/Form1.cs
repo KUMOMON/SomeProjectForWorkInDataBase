@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -65,6 +66,32 @@ namespace DB_Maker
             {
                 MessageBox.Show(ex.Message);
             }
+        }
+
+        private void button_find_Click(object sender, EventArgs e)
+        {
+            //object ob = queriesTableAdapter_Client.sampleSelect(textBox_FIO.Text);
+            string s = "";
+            using (var sqlConn = new SqlConnection(Properties.Settings.Default.BusherConnectionString))
+            {
+                var sqlCmd = new SqlCommand("sampleSelect", sqlConn);
+                sqlCmd.CommandType = CommandType.StoredProcedure;
+                sqlCmd.Parameters.AddWithValue("@fio", textBox_FIO.Text);
+                sqlConn.Open();
+
+                using (SqlDataReader dr = sqlCmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        object[] obj = new object[dr.FieldCount];
+                        dr.GetValues(obj);
+                        foreach (object o in obj)
+                            s += o.ToString() + " ";
+                        s += Environment.NewLine;
+                    }
+                }
+            }
+            MessageBox.Show(s.Length != 0 ? s : "Ничего не найдено!");
         }
     }
 }

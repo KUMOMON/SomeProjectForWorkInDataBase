@@ -30,18 +30,9 @@
         {
             this.components = new System.ComponentModel.Container();
             this.dataGridView_Client = new System.Windows.Forms.DataGridView();
-            this.busherDataSet = new DB_Maker.BusherDataSet();
-            this.clientViewBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.clientViewTableAdapter = new DB_Maker.BusherDataSetTableAdapters.ClientViewTableAdapter();
-            this.кодDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.фИОDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.фирмаDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.городDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.телефонDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.button_InsertClient = new System.Windows.Forms.Button();
             this.button_DeleteClient = new System.Windows.Forms.Button();
             this.button_UpdateClient = new System.Windows.Forms.Button();
-            this.queriesTableAdapter_Client = new DB_Maker.BusherDataSetTableAdapters.QueriesTableAdapter();
             this.textBox_ID = new System.Windows.Forms.TextBox();
             this.textBox_FIO = new System.Windows.Forms.TextBox();
             this.textBox_Firm = new System.Windows.Forms.TextBox();
@@ -52,9 +43,19 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
+            this.кодDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.фИОDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.фирмаDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.городDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.телефонDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.clientViewBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.busherDataSet = new DB_Maker.BusherDataSet();
+            this.clientViewTableAdapter = new DB_Maker.BusherDataSetTableAdapters.ClientViewTableAdapter();
+            this.queriesTableAdapter_Client = new DB_Maker.BusherDataSetTableAdapters.QueriesTableAdapter();
+            this.button_find = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_Client)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.busherDataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.clientViewBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.busherDataSet)).BeginInit();
             this.SuspendLayout();
             // 
             // dataGridView_Client
@@ -78,55 +79,6 @@
             this.dataGridView_Client.Size = new System.Drawing.Size(663, 109);
             this.dataGridView_Client.TabIndex = 0;
             this.dataGridView_Client.SelectionChanged += new System.EventHandler(this.dataGridView_Client_SelectionChanged);
-            // 
-            // busherDataSet
-            // 
-            this.busherDataSet.DataSetName = "BusherDataSet";
-            this.busherDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
-            // 
-            // clientViewBindingSource
-            // 
-            this.clientViewBindingSource.DataMember = "ClientView";
-            this.clientViewBindingSource.DataSource = this.busherDataSet;
-            // 
-            // clientViewTableAdapter
-            // 
-            this.clientViewTableAdapter.ClearBeforeFill = true;
-            // 
-            // кодDataGridViewTextBoxColumn
-            // 
-            this.кодDataGridViewTextBoxColumn.DataPropertyName = "Код";
-            this.кодDataGridViewTextBoxColumn.HeaderText = "Код";
-            this.кодDataGridViewTextBoxColumn.Name = "кодDataGridViewTextBoxColumn";
-            this.кодDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // фИОDataGridViewTextBoxColumn
-            // 
-            this.фИОDataGridViewTextBoxColumn.DataPropertyName = "ФИО";
-            this.фИОDataGridViewTextBoxColumn.HeaderText = "ФИО";
-            this.фИОDataGridViewTextBoxColumn.Name = "фИОDataGridViewTextBoxColumn";
-            this.фИОDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // фирмаDataGridViewTextBoxColumn
-            // 
-            this.фирмаDataGridViewTextBoxColumn.DataPropertyName = "Фирма";
-            this.фирмаDataGridViewTextBoxColumn.HeaderText = "Фирма";
-            this.фирмаDataGridViewTextBoxColumn.Name = "фирмаDataGridViewTextBoxColumn";
-            this.фирмаDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // городDataGridViewTextBoxColumn
-            // 
-            this.городDataGridViewTextBoxColumn.DataPropertyName = "Город";
-            this.городDataGridViewTextBoxColumn.HeaderText = "Город";
-            this.городDataGridViewTextBoxColumn.Name = "городDataGridViewTextBoxColumn";
-            this.городDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // телефонDataGridViewTextBoxColumn
-            // 
-            this.телефонDataGridViewTextBoxColumn.DataPropertyName = "Телефон";
-            this.телефонDataGridViewTextBoxColumn.HeaderText = "Телефон";
-            this.телефонDataGridViewTextBoxColumn.Name = "телефонDataGridViewTextBoxColumn";
-            this.телефонDataGridViewTextBoxColumn.ReadOnly = true;
             // 
             // button_InsertClient
             // 
@@ -238,11 +190,71 @@
             this.label5.TabIndex = 13;
             this.label5.Text = "Телефон:";
             // 
+            // кодDataGridViewTextBoxColumn
+            // 
+            this.кодDataGridViewTextBoxColumn.DataPropertyName = "Код";
+            this.кодDataGridViewTextBoxColumn.HeaderText = "Код";
+            this.кодDataGridViewTextBoxColumn.Name = "кодDataGridViewTextBoxColumn";
+            this.кодDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // фИОDataGridViewTextBoxColumn
+            // 
+            this.фИОDataGridViewTextBoxColumn.DataPropertyName = "ФИО";
+            this.фИОDataGridViewTextBoxColumn.HeaderText = "ФИО";
+            this.фИОDataGridViewTextBoxColumn.Name = "фИОDataGridViewTextBoxColumn";
+            this.фИОDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // фирмаDataGridViewTextBoxColumn
+            // 
+            this.фирмаDataGridViewTextBoxColumn.DataPropertyName = "Фирма";
+            this.фирмаDataGridViewTextBoxColumn.HeaderText = "Фирма";
+            this.фирмаDataGridViewTextBoxColumn.Name = "фирмаDataGridViewTextBoxColumn";
+            this.фирмаDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // городDataGridViewTextBoxColumn
+            // 
+            this.городDataGridViewTextBoxColumn.DataPropertyName = "Город";
+            this.городDataGridViewTextBoxColumn.HeaderText = "Город";
+            this.городDataGridViewTextBoxColumn.Name = "городDataGridViewTextBoxColumn";
+            this.городDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // телефонDataGridViewTextBoxColumn
+            // 
+            this.телефонDataGridViewTextBoxColumn.DataPropertyName = "Телефон";
+            this.телефонDataGridViewTextBoxColumn.HeaderText = "Телефон";
+            this.телефонDataGridViewTextBoxColumn.Name = "телефонDataGridViewTextBoxColumn";
+            this.телефонDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // clientViewBindingSource
+            // 
+            this.clientViewBindingSource.DataMember = "ClientView";
+            this.clientViewBindingSource.DataSource = this.busherDataSet;
+            // 
+            // busherDataSet
+            // 
+            this.busherDataSet.DataSetName = "BusherDataSet";
+            this.busherDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
+            // 
+            // clientViewTableAdapter
+            // 
+            this.clientViewTableAdapter.ClearBeforeFill = true;
+            // 
+            // button_find
+            // 
+            this.button_find.Location = new System.Drawing.Point(199, 182);
+            this.button_find.Name = "button_find";
+            this.button_find.Size = new System.Drawing.Size(75, 23);
+            this.button_find.TabIndex = 14;
+            this.button_find.Text = "Find";
+            this.button_find.UseVisualStyleBackColor = true;
+            this.button_find.Click += new System.EventHandler(this.button_find_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(687, 256);
+            this.Controls.Add(this.button_find);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
@@ -261,8 +273,8 @@
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_Client)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.busherDataSet)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.clientViewBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.busherDataSet)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -293,6 +305,7 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Button button_find;
     }
 }
 
