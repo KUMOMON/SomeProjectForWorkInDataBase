@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
+using System.Data.SqlClient;
 using System.Windows.Forms;
 
 namespace DB_Maker
@@ -18,13 +14,12 @@ namespace DB_Maker
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            // TODO: данная строка кода позволяет загрузить данные в таблицу "busherDataSet.ClientView". При необходимости она может быть перемещена или удалена.
             this.clientViewTableAdapter.Fill(this.busherDataSet.ClientView);
+            dataGridView_Client.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
         }
 
         private void button_InsertClient_Click(object sender, EventArgs e)
         {
-            //TODO: а вернет ли 1 код ошибки?
             if (queriesTableAdapter_Client.ClientInsert(textBox_FIO.Text, textBox_Firm.Text, textBox_Town.Text, textBox_Phone.Text) != 1)
                 MessageBox.Show("Ошибка вставки!");
             clientViewTableAdapter.Fill(this.busherDataSet.ClientView);
@@ -49,8 +44,8 @@ namespace DB_Maker
             if (dataGridView_Client.Rows.Count == 0)
                 return;
 
-            foreach (TextBox t in new TextBox[] { textBox_ID, textBox_FIO, textBox_Firm, textBox_Town, textBox_Phone })//int cnt = 0;
-                t.Text = dataGridView_Client.Rows[dataGridView_Client.CurrentRow.Index].Cells[/*cnt++*/t.TabIndex - 4].Value.ToString().Trim();
+            foreach (TextBox t in new TextBox[] { textBox_ID, textBox_FIO, textBox_Firm, textBox_Town, textBox_Phone })
+                t.Text = dataGridView_Client.Rows[dataGridView_Client.CurrentRow.Index].Cells[t.TabIndex - 4].Value.ToString().Trim();
         }
 
         private void button_DeleteClient_Click(object sender, EventArgs e)
@@ -65,6 +60,49 @@ namespace DB_Maker
             {
                 MessageBox.Show(ex.Message);
             }
+        }
+
+        private void button_find_Click(object sender, EventArgs e)
+        {
+            foreach (Button bt in new Button[] { button_UpdateClient, button_DeleteClient, button_InsertClient })
+                bt.Enabled = false;
+
+            dataGridView_Client.SelectionChanged -= dataGridView_Client_SelectionChanged;
+            dataGridView_Client.DataSource = null;
+            dataGridView_Client.Rows.Clear();
+            dataGridView_Client.SelectionChanged += dataGridView_Client_SelectionChanged;
+
+            try
+            {
+                using (var sqlConn = new SqlConnection(Properties.Settings.Default.BusherConnectionString))
+                {
+                    var sqlCmd = new SqlCommand("sampleSelect", sqlConn) { CommandType = CommandType.StoredProcedure };
+                    sqlCmd.Parameters.AddWithValue("@fio", textBox_FIO.Text);
+                    sqlConn.Open();
+
+                    using (SqlDataReader dr = sqlCmd.ExecuteReader())
+                    {
+                        while (dr.Read())
+                        {
+                            object[] obj = new object[dr.FieldCount];
+                            dr.GetValues(obj);
+                            dataGridView_Client.Rows.Add(obj);
+                        }
+
+                    }
+                }
+            }
+            catch (ArgumentException ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void button_rest_Click(object sender, EventArgs e)
+        {
+            dataGridView_Client.DataSource = busherDataSet.ClientView;
+            foreach (Button bt in new Button[] { button_UpdateClient, button_DeleteClient, button_InsertClient })
+                bt.Enabled = true;
         }
     }
 }
